@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>值班表 & 智慧排班助理</title>
-    <!-- 引入 Tailwind CSS 與 FontAwesome 圖示 -->
+    <title>值班表</title>
+    <!-- 引入 Tailwind CSS 與 Google Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,6 @@
     </script>
     
     <style>
-        /* 自訂滾動條與細節樣式 */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -48,193 +47,111 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
-        @keyframes pulse-soft {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(0.98); }
-        }
-        .pulse-btn {
-            animation: pulse-soft 2s infinite ease-in-out;
-        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
 
-<!-- 頂部導航列 -->
 <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
             <div class="bg-orange-500 text-white p-2.5 rounded-xl shadow-md shadow-orange-500/20">
                 <i class="fa-solid fa-calendar-check text-xl"></i>
             </div>
             <div>
-                <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">哲綸的值班表</h1>
-                <p class="text-xs text-slate-500">2026年智慧排班與連七天防衝突系統</p>
+                <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">值班表</h1>
+                <p class="text-xs text-slate-500">2026年智慧循環排班系統</p>
             </div>
         </div>
         <div class="flex items-center gap-2 bg-slate-100 p-1 rounded-lg text-sm font-medium">
-            <span class="px-3 py-1 bg-white rounded-md text-slate-800 shadow-sm">A班 專用系統</span>
-            <span class="px-2 text-slate-400">|</span>
-            <span class="text-slate-600 pr-2">助理連線中 <i class="fa-solid fa-circle-check text-emerald-500 text-xs ml-1"></i></span>
+            <span class="px-3 py-1 bg-white rounded-md text-slate-800 shadow-sm font-bold">個人專用值班月曆</span>
         </div>
     </div>
 </header>
 
-<!-- 主版面區 -->
-<main class="max-w-7xl mx-auto px-4 py-6 flex-grow grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
+<main class="max-w-4xl mx-auto px-4 py-6 flex-grow flex flex-col gap-6 w-full">
     
-    <!-- 左側：月曆主區 (佔 7 格) -->
-    <section class="lg:col-span-7 xl:col-span-8 flex flex-col gap-6">
-        
-        <!-- 控制面板 -->
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                    <label for="selectTeam" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
-                        <i class="fa-solid fa-users text-orange-500 mr-1"></i> 選擇班別
-                    </label>
-                    <select id="selectTeam" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 cursor-pointer" onchange="onControlChange()">
-                        <option value="A">A 班 (哲綸)</option>
-                        <option value="B">B 班</option>
-                        <option value="C">C 班</option>
-                        <option value="D">D 班</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="selectYear" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
-                        <i class="fa-solid fa-calendar text-orange-500 mr-1"></i> 選擇年份
-                    </label>
-                    <select id="selectYear" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 cursor-pointer" onchange="onControlChange()">
-                        <!-- 動態生成 -->
-                    </select>
-                </div>
-                <div>
-                    <label for="selectMonth" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
-                        <i class="fa-solid fa-calendar-week text-orange-500 mr-1"></i> 選擇月份
-                    </label>
-                    <select id="selectMonth" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 cursor-pointer" onchange="onControlChange()">
-                        <!-- 動態生成 -->
-                    </select>
-                </div>
+    <!-- 控制面板 -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+                <label for="selectTeam" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                    <i class="fa-solid fa-users text-orange-500 mr-1"></i> 選擇班別
+                </label>
+                <select id="selectTeam" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 cursor-pointer" onchange="onControlChange()">
+                    <option value="A">A 班</option>
+                    <option value="B">B 班</option>
+                    <option value="C">C 班</option>
+                    <option value="D">D 班</option>
+                </select>
+            </div>
+            <div>
+                <label for="selectYear" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                    <i class="fa-solid fa-calendar text-orange-500 mr-1"></i> 選擇年份
+                </label>
+                <select id="selectYear" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 cursor-pointer" onchange="onControlChange()">
+                    <!-- 動態生成 -->
+                </select>
+            </div>
+            <div>
+                <label for="selectMonth" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                    <i class="fa-solid fa-calendar-week text-orange-500 mr-1"></i> 選擇月份
+                </label>
+                <select id="selectMonth" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-bold text-slate-700 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 cursor-pointer" onchange="onControlChange()">
+                    <!-- 動態生成 -->
+                </select>
             </div>
         </div>
+    </div>
 
-        <!-- 快速切換列 -->
-        <div class="flex items-center justify-between bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm">
-            <button onclick="changeMonth(-1)" class="flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-orange-500 transition px-3 py-2 hover:bg-slate-50 rounded-lg">
-                <i class="fa-solid fa-chevron-left"></i> 上個月
-            </button>
-            <div class="flex flex-col items-center">
-                <span class="text-lg font-black text-slate-800" id="displayTitle">2026 年 05 月</span>
-                <span id="adjustmentBadge" class="hidden text-[10px] bg-amber-500 text-white px-2 py-0.5 rounded-full font-bold mt-1">已套用受訓調班模擬</span>
-            </div>
-            <button onclick="changeMonth(1)" class="flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-orange-500 transition px-3 py-2 hover:bg-slate-50 rounded-lg">
-                下個月 <i class="fa-solid fa-chevron-right"></i>
-            </button>
+    <div class="flex items-center justify-between bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm">
+        <button onclick="changeMonth(-1)" class="flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-orange-500 transition px-3 py-2 hover:bg-slate-50 rounded-lg">
+            <i class="fa-solid fa-chevron-left"></i> 上個月
+        </button>
+        <div class="flex flex-col items-center">
+            <span class="text-lg font-black text-slate-800" id="displayTitle">2026 年 05 月</span>
         </div>
+        <button onclick="changeMonth(1)" class="flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-orange-500 transition px-3 py-2 hover:bg-slate-50 rounded-lg">
+            下個月 <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
 
-        <!-- 月曆網格區 -->
-        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex-grow">
-            <!-- 星期列 -->
-            <div class="grid grid-cols-7 gap-2 text-center mb-2" id="weekHeaderGrid">
-                <!-- 動態注入 -->
-            </div>
-            <!-- 日期網格 -->
-            <div class="grid grid-cols-7 gap-2 min-h-[400px]" id="calendarGrid">
-                <!-- 動態注入 -->
-            </div>
+    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex-grow">
+        <!-- 星期列 -->
+        <div class="grid grid-cols-7 gap-2 text-center mb-2" id="weekHeaderGrid">
+            <!-- 動態注入 -->
         </div>
+        <!-- 日期網格 -->
+        <div class="grid grid-cols-7 gap-2 min-h-[420px]" id="calendarGrid">
+            <!-- 動態注入 -->
+        </div>
+    </div>
 
-        <!-- 圖例說明 -->
-        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
-            <p class="text-xs font-bold text-slate-400 mb-3 uppercase tracking-wider">值班圖例對照</p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div class="flex items-center gap-2.5 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <span class="w-7 h-7 rounded-md bg-white border border-red-200 text-red-500 font-black text-xs flex items-center justify-center shadow-sm">一</span>
-                    <span class="text-xs font-bold text-slate-600">一值 (白底紅字)</span>
-                </div>
-                <div class="flex items-center gap-2.5 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <span class="w-7 h-7 rounded-md bg-white border border-blue-200 text-blue-900 font-black text-xs flex items-center justify-center shadow-sm">二</span>
-                    <span class="text-xs font-bold text-slate-600">二值 (白底深藍)</span>
-                </div>
-                <div class="flex items-center gap-2.5 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <span class="w-7 h-7 rounded-md bg-white border border-emerald-200 text-emerald-600 font-black text-xs flex items-center justify-center shadow-sm">三</span>
-                    <span class="text-xs font-bold text-slate-600">三值 (白底綠字)</span>
-                </div>
-                <div class="flex items-center gap-2.5 p-2 bg-slate-50 rounded-lg border border-slate-100">
-                    <span class="w-7 h-7 rounded-md bg-orange-500 text-white font-black text-xs flex items-center justify-center shadow-sm">空</span>
-                    <span class="text-xs font-bold text-slate-600">空班 (橘底白字)</span>
-                </div>
+    <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm mb-6">
+        <p class="text-xs font-bold text-slate-400 mb-3 uppercase tracking-wider text-center">值班圖例對照</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="flex items-center gap-2.5 p-2 bg-slate-50 rounded-lg border border-slate-100">
+                <span class="w-7 h-7 rounded-md bg-white border border-red-200 text-red-500 font-black text-xs flex items-center justify-center shadow-sm">一</span>
+                <span class="text-xs font-bold text-slate-600">一值 (白底紅字)</span>
+            </div>
+            <div class="flex items-center gap-2.5 p-2 bg-slate-50 rounded-lg border border-slate-100">
+                <span class="w-7 h-7 rounded-md bg-white border border-blue-200 text-blue-900 font-black text-xs flex items-center justify-center shadow-sm">二</span>
+                <span class="text-xs font-bold text-slate-600">二值 (白底深藍)</span>
+            </div>
+            <div class="flex items-center gap-2.5 p-2 bg-slate-50 rounded-lg border border-slate-100">
+                <span class="w-7 h-7 rounded-md bg-white border border-emerald-200 text-emerald-600 font-black text-xs flex items-center justify-center shadow-sm">三</span>
+                <span class="text-xs font-bold text-slate-600">三值 (白底綠字)</span>
+            </div>
+            <div class="flex items-center gap-2.5 p-2 bg-orange-500 text-white rounded-lg border border-orange-500">
+                <span class="w-7 h-7 rounded-md bg-orange-500 text-white font-black text-xs flex items-center justify-center shadow-sm">空</span>
+                <span class="text-xs font-bold text-white">空班 (橘底白字)</span>
             </div>
         </div>
-
-    </section>
-
-    <!-- 右側：智慧對話助理 (佔 5 格) -->
-    <section class="lg:col-span-5 xl:col-span-4 flex flex-col bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden min-h-[550px] max-h-[800px]">
-        
-        <!-- 助理頭部 -->
-        <div class="bg-slate-900 text-white p-4 flex items-center justify-between border-b border-slate-800">
-            <div class="flex items-center gap-3">
-                <div class="relative">
-                    <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white font-bold text-lg shadow-inner">
-                        <i class="fa-solid fa-robot"></i>
-                    </div>
-                    <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-slate-900 rounded-full"></span>
-                </div>
-                <div>
-                    <h3 class="font-bold text-sm tracking-tight">智慧值班助手</h3>
-                    <p class="text-[10px] text-slate-400">連七防衝突・自動調班試算</p>
-                </div>
-            </div>
-            <!-- 重置按鈕 -->
-            <button id="resetScheduleBtn" onclick="resetAppliedAdjustment()" class="hidden text-xs bg-red-500/20 hover:bg-red-500 text-red-400 hover:text-white px-2.5 py-1.5 rounded-lg font-bold transition flex items-center gap-1">
-                <i class="fa-solid fa-rotate"></i> 還原班表
-            </button>
-        </div>
-
-        <!-- 訊息展示區 -->
-        <div class="flex-grow p-4 overflow-y-auto space-y-4 bg-slate-50" id="chatHistory">
-            <!-- 初始問候 -->
-            <div class="flex items-start gap-2.5">
-                <div class="w-7 h-7 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs shrink-0 shadow-sm">
-                    <i class="fa-solid fa-robot"></i>
-                </div>
-                <div class="bg-white rounded-2xl rounded-tl-none p-3.5 border border-slate-200 max-w-[85%] shadow-sm">
-                    <p class="text-xs font-bold text-slate-800 leading-relaxed">
-                        你好，哲綸！我是你的智慧排程助理。💡<br><br>
-                        我的排班演算法可以幫你自動檢測受訓期間是否會有<strong>「連續工作超過 6 天 (連七)」</strong>的問題。
-                    </p>
-                    <div class="mt-3 pt-3 border-t border-slate-100 flex flex-col gap-1.5">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase">您可以試試這樣問我：</span>
-                        <button onclick="sendQuickPrompt('我 2026/06/01 ~ 2026/06/05 要去受訓')" class="text-left text-xs bg-slate-50 hover:bg-orange-50 text-slate-600 hover:text-orange-600 px-2.5 py-1.5 rounded-lg border border-slate-200 transition font-medium">
-                            📝 檢測 2026/06/01 ~ 2026/06/05 受訓
-                        </button>
-                        <button onclick="sendQuickPrompt('如果我 2026/11/16 ~ 2026/11/20 也要受訓呢？')" class="text-left text-xs bg-slate-50 hover:bg-orange-50 text-slate-600 hover:text-orange-600 px-2.5 py-1.5 rounded-lg border border-slate-200 transition font-medium">
-                            📝 如果我 2026/11/16 ~ 2026/11/20 受訓？
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 輸入區 -->
-        <div class="p-3 bg-white border-t border-slate-200">
-            <!-- 輸入框與按鈕 -->
-            <div class="flex gap-2">
-                <input type="text" id="chatInput" placeholder="輸入受訓日期，例: 6/1 ~ 6/5 受訓..." onkeydown="handleChatKey(event)" class="flex-grow bg-slate-100 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 font-medium">
-                <button onclick="sendMessage()" class="bg-orange-500 hover:bg-orange-600 text-white w-10 h-10 rounded-xl flex items-center justify-center transition shadow-md shadow-orange-500/20 shrink-0">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
-            </div>
-            <p class="text-[10px] text-slate-400 mt-2 text-center">支援多種口語化輸入，系統將使用 AI 自動提取日期</p>
-        </div>
-
-    </section>
+    </div>
 
 </main>
 
 <script>
-    // 1. 值班基礎設定
+    // 1. 值班基礎設定 (從 2026/05/20 開始循環)
     const START_DATE = new Date(2026, 4, 20); // 2026/05/20 為 Day 0
 
     // 四個班別的 12 天排班循環表
@@ -245,7 +162,7 @@
         'D': ["三值", "空班", "二值", "二值", "二值", "一值", "一值", "一值", "空班", "空班", "三值", "三值"]
     };
 
-    // 2. 2026 年國定假日與特殊補班日
+    // 2. 2026 年國定假日與特殊補班日 (依據人事行政總處資料)
     const holidays2026 = {
         '01-01': '元旦',
         '02-13': '小年夜', '02-14': '除夕', '02-15': '春節', '02-16': '春節', '02-17': '春節', '02-18': '春節',
@@ -263,9 +180,6 @@
     let currentMonth = 4; // 0代表1月, 4代表5月
     let currentTeam = 'A';
 
-    // 儲存套用的受訓假調整資料
-    let appliedAdjustment = null;
-
     const weekLabels = ['日', '一', '二', '三', '四', '五', '六'];
 
     // 頁面初始化
@@ -279,8 +193,8 @@
         const yearSelect = document.getElementById('selectYear');
         const monthSelect = document.getElementById('selectMonth');
 
-        // 生成 2024 至 2030 年選項
-        for (let y = 2024; y <= 2030; y++) {
+        // 生成 2022 至 2040 年選項
+        for (let y = 2022; y <= 2040; y++) {
             const opt = document.createElement('option');
             opt.value = y;
             opt.innerText = `${y} 年`;
@@ -313,14 +227,6 @@
         document.getElementById('selectTeam').value = currentTeam;
     }
 
-    // 格式化日期為 YYYY-MM-DD
-    function formatDateString(date) {
-        const y = date.getFullYear();
-        const m = String(date.getMonth() + 1).padStart(2, '0');
-        const d = String(date.getDate()).padStart(2, '0');
-        return `${y}-${m}-${d}`;
-    }
-
     // 計算特定日期原始值班狀態
     function getOriginalDuty(date, team) {
         const dStart = new Date(START_DATE.getFullYear(), START_DATE.getMonth(), START_DATE.getDate());
@@ -334,36 +240,6 @@
         
         const index = ((diffDays % len) + len) % len;
         return cycle[index];
-    }
-
-    // 獲取當前渲染日期的班表（包含已套用的受訓調整模擬）
-    function getDuty(date, team) {
-        const dateStr = formatDateString(date);
-
-        if (appliedAdjustment && appliedAdjustment.team === team) {
-            const start = new Date(appliedAdjustment.startDateStr);
-            const end = new Date(appliedAdjustment.endDateStr);
-            const isWeekday = date.getDay() >= 1 && date.getDay() <= 5;
-            const inTrainingRange = date >= start && date <= end && isWeekday;
-
-            // 檢查是否是調班對調的特定日期
-            if (dateStr === appliedAdjustment.swap1) {
-                return { duty: appliedAdjustment.duty2, status: 'swapped_work', original: appliedAdjustment.duty1 };
-            }
-            if (dateStr === appliedAdjustment.swap2) {
-                return { duty: appliedAdjustment.duty1, status: 'swapped_off', original: appliedAdjustment.duty2 };
-            }
-
-            // 檢查是否屬於受訓期間的平日（要請受訓假）
-            if (inTrainingRange) {
-                const orig = getOriginalDuty(date, team);
-                return { duty: orig, status: 'training', original: orig };
-            }
-        }
-
-        // 一般無調整狀態
-        const orig = getOriginalDuty(date, team);
-        return { duty: orig, status: 'normal', original: orig };
     }
 
     // 判斷國定假日、補班或一般週末
@@ -384,25 +260,17 @@
         return { isHoliday: (dayOfWeek === 0 || dayOfWeek === 6), name: '' };
     }
 
-    // 渲染主月曆
     function renderCalendar() {
         const grid = document.getElementById('calendarGrid');
         const weekHeaderGrid = document.getElementById('weekHeaderGrid');
         const displayTitle = document.getElementById('displayTitle');
-        const adjBadge = document.getElementById('adjustmentBadge');
         
         grid.innerHTML = '';
         weekHeaderGrid.innerHTML = '';
 
-        // 更新上方的文字顯示與狀態 Badge
+        // 更新上方的文字顯示
         const monthString = String(currentMonth + 1).padStart(2, '0');
         displayTitle.innerText = `${currentYear} 年 ${monthString} 月`;
-
-        if (appliedAdjustment && appliedAdjustment.team === currentTeam) {
-            adjBadge.classList.remove('hidden');
-        } else {
-            adjBadge.classList.add('hidden');
-        }
 
         // 同步下拉選單數值
         syncSelectors();
@@ -455,7 +323,6 @@
         }
     }
 
-    // 建立個別日期格子 HTML
     function createDayCell(date, bgClass) {
         const grid = document.getElementById('calendarGrid');
         const cell = document.createElement('div');
@@ -465,7 +332,7 @@
         const year = date.getFullYear();
         const dayOfWeek = date.getDay();
 
-        cell.className = `border rounded-xl p-2 flex flex-col justify-between min-h-[82px] transition ${bgClass}`;
+        cell.className = `border rounded-xl p-2 flex flex-col justify-between min-h-[85px] transition ${bgClass}`;
 
         // 假日樣式判斷
         const holidayInfo = checkHoliday(year, month, day, dayOfWeek);
@@ -489,9 +356,8 @@
         }
         cell.appendChild(topRow);
 
-        // 獲取當前班表資訊 (含調整狀態)
-        const dutyInfo = getDuty(date, currentTeam);
-        const duty = dutyInfo.duty;
+        // 獲取當前班表資訊
+        const duty = getOriginalDuty(date, currentTeam);
 
         // 值班班表標記容器
         const badgeContainer = document.createElement('div');
@@ -500,7 +366,7 @@
         const dutyDiv = document.createElement('div');
         dutyDiv.className = 'text-[10px] py-1 rounded-md font-black text-center shadow-sm border transition-all';
 
-        // 分配視覺配色
+        // 依照您設定的規則分配視覺配色
         if (duty === '一值') {
             dutyDiv.className += ' bg-white text-red-500 border-red-200';
         } else if (duty === '二值') {
@@ -508,41 +374,11 @@
         } else if (duty === '三值') {
             dutyDiv.className += ' bg-white text-emerald-600 border-emerald-200';
         } else {
+            // 空班：橘底白字
             dutyDiv.className += ' bg-orange-500 text-white border-orange-500';
         }
         dutyDiv.innerText = duty;
         badgeContainer.appendChild(dutyDiv);
-
-        // 受訓特殊狀態徽章渲染
-        if (dutyInfo.status === 'training') {
-            // 平日受訓中原本的值班（請受訓假）
-            if (dutyInfo.original !== '空班') {
-                const trLabel = document.createElement('div');
-                trLabel.className = 'text-[7px] text-amber-600 font-bold bg-amber-50 rounded text-center mt-1 py-0.5 border border-amber-200';
-                trLabel.innerHTML = `<i class="fa-solid fa-graduation-cap"></i> 請受訓假`;
-                badgeContainer.appendChild(trLabel);
-                cell.classList.add('bg-amber-50/50', 'border-amber-200');
-            } else {
-                const trLabel = document.createElement('div');
-                trLabel.className = 'text-[7px] text-amber-600 font-bold bg-amber-100/50 rounded text-center mt-1 py-0.5';
-                trLabel.innerHTML = `受訓中`;
-                badgeContainer.appendChild(trLabel);
-            }
-        } else if (dutyInfo.status === 'swapped_work') {
-            // 原本是空班，對調成值班 (在此請受訓假)
-            const swLabel = document.createElement('div');
-            swLabel.className = 'text-[7px] text-purple-600 font-bold bg-purple-50 rounded text-center mt-1 py-0.5 border border-purple-200';
-            swLabel.innerHTML = `<i class="fa-solid fa-right-left"></i> 對調值班 ➜ 請受訓假`;
-            badgeContainer.appendChild(swLabel);
-            cell.classList.add('bg-purple-50/50', 'border-purple-200');
-        } else if (dutyInfo.status === 'swapped_off') {
-            // 原本是值班，對調成空班 (爽放假)
-            const swLabel = document.createElement('div');
-            swLabel.className = 'text-[7px] text-emerald-600 font-bold bg-emerald-50 rounded text-center mt-1 py-0.5 border border-emerald-200';
-            swLabel.innerHTML = `<i class="fa-solid fa-right-left"></i> 對調空班 (休息)`;
-            badgeContainer.appendChild(swLabel);
-            cell.classList.add('bg-emerald-50/30', 'border-emerald-200');
-        }
 
         cell.appendChild(badgeContainer);
         grid.appendChild(cell);
@@ -559,437 +395,6 @@
             currentYear -= 1;
         }
         renderCalendar();
-    }
-</script>
-
-<script>
-    // 3. AI 對話對接邏輯 (整合 Gemini API)
-    
-    // 快速發送推薦提示字
-    function sendQuickPrompt(text) {
-        document.getElementById('chatInput').value = text;
-        sendMessage();
-    }
-
-    // 處理 Enter 按鍵
-    function handleChatKey(event) {
-        if (event.key === 'Enter') {
-            sendMessage();
-        }
-    }
-
-    // 發送對話訊息
-    async function sendMessage() {
-        const inputEl = document.getElementById('chatInput');
-        const text = inputEl.value.trim();
-        if (!text) return;
-
-        // 清空輸入框
-        inputEl.value = '';
-
-        // 1. 呈現使用者訊息
-        appendChatMessage('user', text);
-
-        // 2. 顯示助理正在思考中...
-        const typingId = appendTypingIndicator();
-
-        try {
-            // 3. 呼叫 Gemini 進行意圖分析與日期抽取
-            const analysis = await fetchDateAnalysisFromAI(text);
-            
-            // 移除思考中動畫
-            removeTypingIndicator(typingId);
-
-            if (analysis && analysis.hasTraining) {
-                // 4. 計算調班衝突
-                const solution = solveTrainingSchedule(analysis.startDate, analysis.endDate, currentTeam);
-                
-                // 5. 根據計算結果，讓 AI 回覆
-                const aiResponse = await fetchConversationalReplyFromAI(text, solution);
-                appendChatMessage('assistant', aiResponse, solution);
-            } else {
-                // 一般對話回覆
-                const aiResponse = await fetchConversationalReplyFromAI(text, null);
-                appendChatMessage('assistant', aiResponse);
-            }
-        } catch (error) {
-            console.error(error);
-            removeTypingIndicator(typingId);
-            appendChatMessage('assistant', '抱歉哲綸，我的資料庫連線有點不穩定，請您再試一次！');
-        }
-    }
-
-    // 排班排程連七衝突檢測核心演算法
-    function solveTrainingSchedule(startStr, endStr, team) {
-        const start = new Date(startStr);
-        const end = new Date(endStr);
-        
-        // 生成受訓當週前後共 21 天的完整資料鏈以精準掃描是否有任何連續上班日的衝突
-        const days = [];
-        const scanStart = new Date(start);
-        scanStart.setDate(scanStart.getDate() - 7);
-        const scanEnd = new Date(end);
-        scanEnd.setDate(scanEnd.getDate() + 7);
-        
-        let curr = new Date(scanStart);
-        while (curr <= scanEnd) {
-            const dateStr = formatDateString(curr);
-            const originalDuty = getOriginalDuty(curr, team);
-            const isWeekday = curr.getDay() >= 1 && curr.getDay() <= 5;
-            const isTraining = curr >= start && curr <= end && isWeekday;
-            
-            days.push({
-                date: new Date(curr),
-                dateStr,
-                originalDuty,
-                isTraining,
-                // 原本是空班且當天不需受訓時才是休假日；否則均為工作日
-                isWork: originalDuty !== '空班' || isTraining,
-            });
-            curr.setDate(curr.getDate() + 1);
-        }
-        
-        // 偵測連續工作天數
-        function getMaxConsecutiveWork(list) {
-            let maxSeq = 0;
-            let currentSeq = 0;
-            let currentChain = [];
-            let chains = [];
-            
-            for (let i = 0; i < list.length; i++) {
-                if (list[i].isWork) {
-                    currentSeq++;
-                    currentChain.push(list[i]);
-                } else {
-                    if (currentSeq > 0) {
-                        chains.push([...currentChain]);
-                    }
-                    currentSeq = 0;
-                    currentChain = [];
-                }
-            }
-            if (currentSeq > 0) {
-                chains.push(currentChain);
-            }
-            return chains;
-        }
-        
-        let initialChains = getMaxConsecutiveWork(days);
-        let conflictChain = initialChains.find(chain => chain.length >= 7);
-        
-        if (!conflictChain) {
-            return {
-                hasConflict: false,
-                startDateStr: startStr,
-                endDateStr: endStr,
-                team,
-                message: "此段受訓假安排非常完美，您的週末與平日排班交錯得宜，不會有連續工作 7 天的衝突！"
-            };
-        }
-        
-        // 檢測到連七衝突！根據週六日來找對調時機
-        // 尋找受訓週五 (通常是受訓的最後一天)
-        const friDate = new Date(end);
-        while (friDate.getDay() !== 5 && friDate >= start) {
-            friDate.setDate(friDate.getDate() - 1);
-        }
-        const satDate = new Date(friDate);
-        satDate.setDate(satDate.getDate() + 1);
-        const sunDate = new Date(friDate);
-        sunDate.setDate(sunDate.getDate() + 2);
-        
-        const friStr = formatDateString(friDate);
-        const satStr = formatDateString(satDate);
-        const sunStr = formatDateString(sunDate);
-        
-        const friDayObj = days.find(d => d.dateStr === friStr);
-        const satDayObj = days.find(d => d.dateStr === satStr);
-        const sunDayObj = days.find(d => d.dateStr === sunStr);
-        
-        // 情況 A：受訓後的週六日都需要值班（連七）
-        // 解決：將週六與受訓週五（空班）對調
-        if (friDayObj && satDayObj && friDayObj.originalDuty === '空班' && satDayObj.originalDuty !== '空班') {
-            return {
-                hasConflict: true,
-                team,
-                type: 'post-weekend-swap',
-                conflictDates: conflictChain.map(d => d.dateStr),
-                startDateStr: startStr,
-                endDateStr: endStr,
-                swap1: friStr,
-                swap2: satStr,
-                duty1: friDayObj.originalDuty, // '空班'
-                duty2: satDayObj.originalDuty, // 例如 '二值'
-            };
-        }
-        
-        // 情況 B：受訓前的週六日都需要值班，加受訓當週（連七）
-        // 解決：將受訓週一（空班）與前一天週日對調
-        const monDate = new Date(start);
-        while (monDate.getDay() !== 1 && monDate <= end) {
-            monDate.setDate(monDate.getDate() + 1);
-        }
-        const prevSunDate = new Date(monDate);
-        prevSunDate.setDate(prevSunDate.getDate() - 1);
-        
-        const monStr = formatDateString(monDate);
-        const prevSunStr = formatDateString(prevSunDate);
-        
-        const monDayObj = days.find(d => d.dateStr === monStr);
-        const sunDayObjBefore = days.find(d => d.dateStr === prevSunStr);
-        
-        if (monDayObj && sunDayObjBefore && monDayObj.originalDuty === '空班' && sunDayObjBefore.originalDuty !== '空班') {
-            return {
-                hasConflict: true,
-                team,
-                type: 'pre-weekend-swap',
-                conflictDates: conflictChain.map(d => d.dateStr),
-                startDateStr: startStr,
-                endDateStr: endStr,
-                swap1: monStr,
-                swap2: prevSunStr,
-                duty1: monDayObj.originalDuty, // '空班'
-                duty2: sunDayObjBefore.originalDuty, // 比如 '三值'
-            };
-        }
-        
-        // 通用警告 (若非標準狀況但也引發連七)
-        return {
-            hasConflict: true,
-            team,
-            type: 'manual',
-            startDateStr: startStr,
-            endDateStr: endStr,
-            message: "檢測到連七天上班。建議人工將平日的空班與緊鄰週末的值班進行對調，以避開勞基法連七衝突。"
-        };
-    }
-
-    // 利用 Gemini API 自動提取使用者語意中的受訓時間範圍
-    async function fetchDateAnalysisFromAI(userQuery) {
-        const apiKey = ""; // 使用內建金鑰機制
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-        
-        const systemPrompt = `
-        你是一個排班系統的時間分析提取模組。
-        請精準識別使用者所輸入的對話中，是否含有「受訓期間」、「請假區間」、「受訓天數」等日期資訊。
-        若是，請轉換為標準西元格式，並以純 JSON 物件回傳。
-        
-        【限制條件】
-        - 預設年份為 2026 年（若對話中沒寫年份，一律視為 2026年）。
-        - 格式一律為: {"hasTraining": true, "startDate": "YYYY-MM-DD", "endDate": "YYYY-MM-DD"}
-        - 若完全偵測不到受訓日期，回傳: {"hasTraining": false}
-        - 不要回傳 Markdown（不要使用 \`\`\`json 等標記），只回傳符合格式的 JSON 字串。
-        
-        【範例】
-        輸入：「我 2026/06/01 ~ 2026/06/05 受訓」
-        回傳：{"hasTraining": true, "startDate": "2026-06-01", "endDate": "2026-06-05"}
-        `;
-
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: userQuery }] }],
-                    systemInstruction: { parts: [{ text: systemPrompt }] },
-                    generationConfig: { responseMimeType: "application/json" }
-                })
-            });
-
-            const result = await response.json();
-            const rawJson = result.candidates?.[0]?.content?.parts?.[0]?.text;
-            return JSON.parse(rawJson);
-        } catch (e) {
-            console.error("AI 提取日期失敗，轉換為正規表達式降級解析:", e);
-            // 降級正規表示式解析備用
-            return parseDatesWithRegex(userQuery);
-        }
-    }
-
-    // 正則備用解析
-    function parseDatesWithRegex(text) {
-        const datePattern = /(\d{4})?[/\-年]?(\d{1,2})[/\-月](\d{1,2})[日號]?/g;
-        const matches = [...text.matchAll(datePattern)];
-        if (matches.length >= 2) {
-            const buildDate = (match) => {
-                const y = match[1] ? parseInt(match[1]) : 2026;
-                const m = parseInt(match[2]) - 1;
-                const d = parseInt(match[3]);
-                return formatDateString(new Date(y, m, d));
-            };
-            return {
-                hasTraining: true,
-                startDate: buildDate(matches[0]),
-                endDate: buildDate(matches[1])
-            };
-        }
-        return { hasTraining: false };
-    }
-
-    // 使用 Gemini 產生對話回覆
-    async function fetchConversationalReplyFromAI(userQuery, solution) {
-        const apiKey = "";
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-        let systemPrompt = `
-        你是一位溫暖、專業、幽默的排班秘書，專為「哲綸」服務。
-        
-        【受訓與排班的基本常識】
-        - 哲綸是 A 班。
-        - 受訓假時間：週一到週五（08:00~17:00）。受訓對哲綸來說也是工作上班。
-        - 哲綸需要避免【連續工作 7 天】。
-        - 平日受訓當天如果原本有值班，就請受訓假。
-        `;
-
-        let contextPrompt = `使用者的訊息: "${userQuery}"\n`;
-        if (solution) {
-            if (solution.hasConflict) {
-                if (solution.type !== 'manual') {
-                    contextPrompt += `
-                    【連七衝突檢測結果】: 有衝突！
-                    - 衝突對調方案: 將 ${solution.swap2} 的 ${solution.duty2} 與 ${solution.swap1} 的 空班 對調。
-                    - 請用極度親切並有邏輯地跟哲綸解釋如何調整：
-                      1. 先提醒哲綸，如果按照原本的班表，會在哪幾天連續上班 7 天 (觸犯連七)。
-                      2. 清晰說明調整方式：將哪兩天對調。
-                      3. 對調後，請假方式為：在受訓期間 (包含對調後變為值班的平日) 直接請受訓假。
-                      4. 如此一來，週末的對調日就會變成空班，可以安心去休息。
-                      5. 請告訴哲綸，下方有「套用此調整至月曆」按鈕可以一鍵觀看模擬。
-                    `;
-                } else {
-                    contextPrompt += `有衝突，但狀況非典型，建議哲綸在平日的空班跟週末的值班進行手動對調。`;
-                }
-            } else {
-                contextPrompt += `【檢測結果】: 沒衝突！受訓時間為 ${solution.startDateStr} 至 ${solution.endDateStr}，這段期間的排班很安全，哲綸不用擔心連七上班，平日有值班的天數直接請受訓假即可！`;
-            }
-        } else {
-            contextPrompt += `這是一般閒聊或詢問值班規則，請以排班秘書的口吻回覆。`;
-        }
-
-        try {
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: contextPrompt }] }],
-                    systemInstruction: { parts: [{ text: systemPrompt }] }
-                })
-            });
-
-            const result = await response.json();
-            return result.candidates?.[0]?.content?.parts?.[0]?.text || "分析完畢，請參考下方調班按鈕。";
-        } catch (e) {
-            console.error(e);
-            return "分析完成！我算出了調班方案，您可以點擊對話框中的「套用調整」在月曆上觀看效果喔！";
-        }
-    }
-
-    // 渲染聊天訊息氣泡
-    function appendChatMessage(sender, text, solution = null) {
-        const history = document.getElementById('chatHistory');
-        const bubbleWrapper = document.createElement('div');
-        bubbleWrapper.className = `flex items-start gap-2.5 ${sender === 'user' ? 'justify-end' : ''}`;
-
-        // 頭像
-        const avatar = document.createElement('div');
-        if (sender === 'user') {
-            avatar.className = 'w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs shrink-0 order-2 shadow';
-            avatar.innerHTML = '<i class="fa-solid fa-user"></i>';
-        } else {
-            avatar.className = 'w-7 h-7 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs shrink-0 shadow-sm';
-            avatar.innerHTML = '<i class="fa-solid fa-robot"></i>';
-        }
-        bubbleWrapper.appendChild(avatar);
-
-        // 訊息泡泡
-        const bubble = document.createElement('div');
-        bubble.className = `rounded-2xl p-3.5 max-w-[85%] shadow-sm text-xs leading-relaxed ${
-            sender === 'user' 
-            ? 'bg-orange-500 text-white rounded-tr-none' 
-            : 'bg-white text-slate-800 border border-slate-200 rounded-tl-none'
-        }`;
-        
-        // 轉換換行與粗體標記為 HTML
-        let formattedText = text.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        bubble.innerHTML = `<p>${formattedText}</p>`;
-
-        // 如果包含推薦套用方案的按鈕
-        if (solution && solution.hasConflict && solution.type !== 'manual') {
-            const btnArea = document.createElement('div');
-            btnArea.className = 'mt-3.5 pt-3 border-t border-slate-100 flex flex-col gap-2';
-            
-            const applyBtn = document.createElement('button');
-            applyBtn.className = 'pulse-btn w-full bg-orange-500 hover:bg-orange-600 active:scale-95 text-white py-2 px-3 rounded-xl font-bold text-xs shadow-md shadow-orange-500/20 transition-all flex items-center justify-center gap-1.5';
-            applyBtn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles"></i> 套用此調整至月曆`;
-            
-            // 綁定套用點擊事件
-            applyBtn.onclick = () => applyAdjustment(solution);
-            btnArea.appendChild(applyBtn);
-            bubble.appendChild(btnArea);
-        }
-
-        bubbleWrapper.appendChild(bubble);
-        history.appendChild(bubbleWrapper);
-
-        // 自動捲動到底部
-        history.scrollTop = history.scrollHeight;
-    }
-
-    // 輸入中動畫
-    function appendTypingIndicator() {
-        const history = document.getElementById('chatHistory');
-        const id = 'typing_' + Date.now();
-        const wrapper = document.createElement('div');
-        wrapper.id = id;
-        wrapper.className = 'flex items-start gap-2.5';
-        wrapper.innerHTML = `
-            <div class="w-7 h-7 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs shrink-0 shadow-sm">
-                <i class="fa-solid fa-robot"></i>
-            </div>
-            <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-none p-3 px-4 shadow-sm flex items-center gap-1 shrink-0">
-                <span class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></span>
-                <span class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
-                <span class="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
-            </div>
-        `;
-        history.appendChild(wrapper);
-        history.scrollTop = history.scrollHeight;
-        return id;
-    }
-
-    // 移除輸入中動畫
-    function removeTypingIndicator(id) {
-        const el = document.getElementById(id);
-        if (el) el.remove();
-    }
-
-    // 套用模擬排班調整
-    function applyAdjustment(solution) {
-        appliedAdjustment = solution;
-        
-        // 切換行事曆月份至受訓開始日期的月份
-        const startDate = new Date(solution.startDateStr);
-        currentYear = startDate.getFullYear();
-        currentMonth = startDate.getMonth();
-        currentTeam = solution.team;
-
-        // 重新渲染行事曆
-        renderCalendar();
-
-        // 顯示還原按鈕
-        document.getElementById('resetScheduleBtn').classList.remove('hidden');
-
-        // 在對話框中給予成功套用反饋
-        appendChatMessage('assistant', `🎉 **已為您模擬對調方案！**<br><br>我已自動跳轉至 **${currentYear} 年 ${String(currentMonth + 1).padStart(2, '0')} 月**。<br>請看左邊月曆中：<br>👉 **${solution.swap1} (五)** 標註為【對調值班 ➜ 請受訓假】<br>👉 **${solution.swap2} (六)** 標註為【對調空班 (休息)】<br><br>如此一來完全沒有連續上班 7 天的問題囉！`);
-    }
-
-    // 還原調班
-    function resetAppliedAdjustment() {
-        appliedAdjustment = null;
-        renderCalendar();
-        
-        // 隱藏還原按鈕
-        document.getElementById('resetScheduleBtn').classList.add('hidden');
-        appendChatMessage('assistant', `已還原哲綸的原始班表。`);
     }
 </script>
 
